@@ -1,6 +1,17 @@
 version: '3.8'
 
 services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: taskdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   backend:
     build: ./backend
     command: sh -c "python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8000"
@@ -11,6 +22,8 @@ services:
     environment:
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
+    depends_on:
+      - db
 
   frontend:
     build: ./frontend
@@ -20,3 +33,6 @@ services:
       - backend
     # The frontend Dockerfile builds and serves with Nginx, no system Nginx needed
     # No separate nginx service, no manual port management
+
+volumes:
+  postgres_data:
