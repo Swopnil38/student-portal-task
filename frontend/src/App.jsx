@@ -13,12 +13,12 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sort, setSort] = useState("");
   const [page, setPage] = useState(1);
-  const { students, loading, error, addStudent, refetch, count, next, previous, hasNoDetails, noDetailsMessage } = useStudents(searchTerm, page, sort);
+  const { students, loading, error, addStudent, refetch, count, next, hasNoDetails } = useStudents(searchTerm, page, sort);
 
   const handleStudentAdded = async (student) => {
     try {
       return await addStudent(student);
-    } catch (err) {
+    } catch (/* err */) {
       // Error handled in hook
     }
   };
