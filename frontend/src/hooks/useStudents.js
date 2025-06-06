@@ -8,7 +8,7 @@ export function useStudents() {
 
   // Fetch a specific page, with options to append or replace
   const fetchStudentsPage = useCallback(
-    async ({ searchTerm = "", page = 1, sort = "", append = false, onResult }) => {
+    async ({ searchTerm = "", page = 1, sort = "", onResult }) => {
       setLoading(true);
       setError(null);
       try {

@@ -14,7 +14,15 @@ function App() {
   const [page, setPage] = useState(1);
   const [students, setStudents] = useState([]);
   const [classroomStudent, setClassroomStudent] = useState(null);
-  const { loading, error, addStudent, refetch, count, fetchStudentsPage } = useStudents();
+  const {
+    loading,
+    error,
+    addStudent,
+    count,
+    fetchStudentsPage
+  } = useStudents();
+
+  const hasNoDetails = !loading && students.length === 0;
 
   // Fetch first page or on search/sort change
   React.useEffect(() => {
@@ -24,7 +32,7 @@ function App() {
       page: 1,
       sort,
       append: false,
-      onResult: (results, total) => {
+      onResult: (results) => {
         setStudents(results);
       }
     });
