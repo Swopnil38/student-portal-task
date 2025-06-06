@@ -41,7 +41,7 @@ const StudentTable = React.memo(function StudentTable({ students, teacherName, s
         </div>
       )}
       <table className="w-full table-auto border-collapse rounded-2xl overflow-hidden text-xs sm:text-sm md:text-base shadow-lg border border-blue-200 bg-white">
-        <thead className="sticky top-0 z-10 bg-blue-100">
+        <thead className="sticky top-0 z-10 bg-blue-100 hidden sm:table-header-group">
           <tr className="bg-blue-100 text-blue-700">
             <th className="p-2 sm:p-3 border-b border-blue-200 text-center font-bold">Name</th>
             <th className="p-2 sm:p-3 border-b border-blue-200 text-center w-1/5 font-bold">Plan</th>
@@ -51,38 +51,67 @@ const StudentTable = React.memo(function StudentTable({ students, teacherName, s
           </tr>
         </thead>
         <tbody>
-          {students.map((student) => (
-            <tr key={student.id || student.name} className="border-b border-blue-100 hover:bg-blue-50 transition-colors">
-              <td className="p-2 sm:p-3 border-blue-100 text-center font-medium">{student.name}</td>
-              <td className="p-2 sm:p-3 border-blue-100 text-center w-1/2">{student.plan?.name || student.plan}</td>
-              <td className="p-2 sm:p-3 border-blue-100 text-center">
-                <span
-                  className={
-                    student.status === 'in_progress'
-                      ? 'bg-green-100 text-green-700 px-4 py-1 rounded-full text-xs font-semibold inline-block mb-1 mt-1 shadow-sm'
-                      : 'bg-yellow-100 text-yellow-700 px-4 py-1 rounded-full text-xs font-semibold inline-block mb-1 mt-1 shadow-sm'
-                  }
-                  style={{ minWidth: 90, display: 'inline-block', letterSpacing: 0.5 }}
-                >
-                  {student.status === 'in_progress' ? 'In Progress' : 'Not Started'}
-                </span>
-              </td>
-              <td className="p-2 sm:p-3 border-blue-100 text-center">{
-                student.enrolled_date
-                  ? new Date(student.enrolled_date).toLocaleDateString()
-                  : ''
-              }</td>
-              <td className="p-2 sm:p-3 border-blue-100 text-center">
-                <button
-                  className="border border-blue-600 text-blue-600 px-4 py-2 rounded-full font-semibold shadow-sm hover:bg-blue-600 hover:text-white transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 mt-1 mb-1"
-                  aria-label={`Go To Classroom for ${student.name}`}
-                  onClick={() => onClassroomClick(student)}
-                  style={{ minWidth: 150, letterSpacing: 0.5 }}
-                >
-                  Go To Classroom
-                </button>
-              </td>
-            </tr>
+          {students.map((student, idx) => (
+            <React.Fragment key={student.id || student.name}>
+              {/* Mobile row: only show name, expandable */}
+              <tr className="sm:hidden border-b border-blue-100">
+                <td colSpan={5} className="p-3">
+                  <details className="group">
+                    <summary className="flex items-center justify-between cursor-pointer font-semibold text-blue-700 text-base">
+                      <span>{student.name}</span>
+                      <span className="ml-2 text-gray-400 group-open:rotate-90 transition-transform">▶</span>
+                    </summary>
+                    <div className="mt-3 space-y-2 text-sm">
+                      <div><span className="font-bold text-gray-700">Plan:</span> {student.plan?.name || student.plan}</div>
+                      <div><span className="font-bold text-gray-700">Status:</span> <span className={student.status === 'in_progress' ? 'bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-semibold' : 'bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full text-xs font-semibold'}>{student.status === 'in_progress' ? 'In Progress' : 'Not Started'}</span></div>
+                      <div><span className="font-bold text-gray-700">Enrolled:</span> {student.enrolled_date ? new Date(student.enrolled_date).toLocaleDateString() : ''}</div>
+                      <div className="flex gap-2 mt-2">
+                        <button
+                          className="border border-blue-600 text-blue-600 px-4 py-2 rounded-full font-semibold shadow-sm hover:bg-blue-600 hover:text-white transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+                          aria-label={`Go To Classroom for ${student.name}`}
+                          onClick={() => onClassroomClick(student)}
+                          style={{ minWidth: 120, letterSpacing: 0.5 }}
+                        >
+                          Go To Classroom
+                        </button>
+                      </div>
+                    </div>
+                  </details>
+                </td>
+              </tr>
+              {/* Desktop row: show all columns */}
+              <tr className="hidden sm:table-row border-b border-blue-100 hover:bg-blue-50 transition-colors">
+                <td className="p-2 sm:p-3 border-blue-100 text-center font-medium">{student.name}</td>
+                <td className="p-2 sm:p-3 border-blue-100 text-center w-1/2">{student.plan?.name || student.plan}</td>
+                <td className="p-2 sm:p-3 border-blue-100 text-center">
+                  <span
+                    className={
+                      student.status === 'in_progress'
+                        ? 'bg-green-100 text-green-700 px-4 py-1 rounded-full text-xs font-semibold inline-block mb-1 mt-1 shadow-sm'
+                        : 'bg-yellow-100 text-yellow-700 px-4 py-1 rounded-full text-xs font-semibold inline-block mb-1 mt-1 shadow-sm'
+                    }
+                    style={{ minWidth: 90, display: 'inline-block', letterSpacing: 0.5 }}
+                  >
+                    {student.status === 'in_progress' ? 'In Progress' : 'Not Started'}
+                  </span>
+                </td>
+                <td className="p-2 sm:p-3 border-blue-100 text-center">{
+                  student.enrolled_date
+                    ? new Date(student.enrolled_date).toLocaleDateString()
+                    : ''
+                }</td>
+                <td className="p-2 sm:p-3 border-blue-100 text-center">
+                  <button
+                    className="border border-blue-600 text-blue-600 px-4 py-2 rounded-full font-semibold shadow-sm hover:bg-blue-600 hover:text-white transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 mt-1 mb-1"
+                    aria-label={`Go To Classroom for ${student.name}`}
+                    onClick={() => onClassroomClick(student)}
+                    style={{ minWidth: 150, letterSpacing: 0.5 }}
+                  >
+                    Go To Classroom
+                  </button>
+                </td>
+              </tr>
+            </React.Fragment>
           ))}
           {loading && (
             <tr>
