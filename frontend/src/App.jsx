@@ -22,8 +22,6 @@ function App() {
     fetchStudentsPage
   } = useStudents();
 
-  const hasNoDetails = !loading && students.length === 0;
-
   // Fetch first page or on search/sort change
   React.useEffect(() => {
     setPage(1);
