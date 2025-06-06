@@ -58,3 +58,15 @@ jobs:
       - name: Lint frontend
         working-directory: frontend
         run: npx eslint src
+      - name: Deploy to Server via SSH
+        if: github.ref == 'refs/heads/main'
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd ~/student-portal-task
+            git pull origin main
+            docker-compose down
+            docker-compose up -d --build
