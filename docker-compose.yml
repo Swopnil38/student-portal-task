@@ -18,3 +18,5 @@ services:
       - "80:80"
     depends_on:
       - backend
+    # The frontend Dockerfile builds and serves with Nginx, no system Nginx needed
+    # No separate nginx service, no manual port management
