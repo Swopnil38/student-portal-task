@@ -14,8 +14,6 @@ jobs:
       postgres:
         image: postgres:15
         env:
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          DEBUG: "True"
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: test_db
@@ -36,6 +34,15 @@ jobs:
           pip install -r requirements.txt
       - name: Run backend tests
         working-directory: backend
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DEBUG: "True"
+          ALLOWED_HOSTS: "localhost,127.0.0.1"
+          DB_NAME: "test_db"
+          DB_USER: "postgres"
+          DB_PASSWORD: "postgres"
+          DB_HOST: "localhost"
+          DB_PORT: "5432"
         run: |
           python manage.py test
       - name: Set up Node.js
@@ -51,15 +58,3 @@ jobs:
       - name: Lint frontend
         working-directory: frontend
         run: npx eslint src
-      - name: Deploy to Server via SSH
-        if: github.ref == 'refs/heads/main'
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          script: |
-            cd /path/to/your/project
-            git pull origin main
-            docker-compose down
-            docker-compose up -d --build
