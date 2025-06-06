@@ -5,7 +5,7 @@ import { UserPlusIcon } from "@heroicons/react/24/outline";
 
 export default function Header({ onStudentAdded, onStudentAddedSuccess }) {
   const [showModal, setShowModal] = useState(false);
-  const teacherId = "e9df80a0-66db-4a21-bb59-6517afebd3b2";
+  const teacherId = "268f2e58-2c98-4d28-b1e6-bcca85e31fbc";
   const { teacher, loading: teacherLoading, error: teacherError } = useTeacher(teacherId);
 
   const handleAddStudent = useCallback(() => {
