@@ -5,7 +5,7 @@ import { UserPlusIcon } from "@heroicons/react/24/outline";
 
 export default function Header({ onStudentAdded, onStudentAddedSuccess }) {
   const [showModal, setShowModal] = useState(false);
-  const teacherId = "268f2e58-2c98-4d28-b1e6-bcca85e31fbc";
+  const teacherId = "e9df80a0-66db-4a21-bb59-6517afebd3b2";
   const { teacher, loading: teacherLoading, error: teacherError } = useTeacher(teacherId);
 
   const handleAddStudent = useCallback(() => {
@@ -30,12 +30,12 @@ export default function Header({ onStudentAdded, onStudentAddedSuccess }) {
       </div>
       <div>
         <button
-          className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+          className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors w-full sm:w-auto justify-center text-base sm:text-base mt-4 sm:mt-0"
           onClick={handleAddStudent}
           aria-label="Add New Student"
         >
           <UserPlusIcon className="w-5 h-5" aria-hidden="true" />
-          <span className="hidden sm:inline">Add New Student</span>
+          <span className="sm:inline">Add New Student</span>
         </button>
       </div>
       

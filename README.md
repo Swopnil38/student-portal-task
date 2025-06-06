@@ -1,10 +1,10 @@
-# Task Management Monorepo
+# Student Dashboard Task
 
-This repository contains both the frontend (React + Vite) and backend (Django REST) for the Task Management project.
+This repository contains both the frontend (React + Vite) and backend (Django REST) for the Student Teacher Management project.
 
 ## Structure
 
-- `frontend/` — React + Vite application
+- `frontend/` — Student Portal Dashboard
 - `backend/` — Django REST API backend
 
 ---
@@ -17,7 +17,7 @@ This repository contains both the frontend (React + Vite) and backend (Django RE
    ```sh
    pip install -r backend/requirements.txt
    ```
-2. Copy `.env` and set your secrets and DB config.
+2. (Optional) Copy `.env` and set your secrets and DB config.
 3. Run development server:
    ```sh
    python backend/manage.py runserver --settings=api.settings.dev
@@ -40,7 +40,7 @@ This repository contains both the frontend (React + Vite) and backend (Django RE
 
 ### Production
 
-- Use `config/settings/prod.py` and set `DEBUG=False` and secure secrets.
+- Use `api/settings/prod.py` and set `DEBUG=False` and secure secrets.
 - Set up static/media file handling as needed.
 
 ### API Documentation
@@ -52,13 +52,63 @@ This repository contains both the frontend (React + Vite) and backend (Django RE
 
 ## Frontend (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### How to Run
 
-Currently, two official plugins are available:
+1. Install dependencies:
+   ```sh
+   cd frontend
+   npm install
+   ```
+2. Start the development server:
+   ```sh
+   npm run dev
+   ```
+3. The app will be available at `http://localhost:5173` by default.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Linting & Formatting
 
-### Expanding the ESLint configuration
+- Run `npm run lint` for linting (if configured)
+- Run `npm run format` for formatting (if configured)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Building for Production
+
+1. Build the frontend:
+   ```sh
+   npm run build
+   ```
+2. The production-ready files will be in `frontend/dist/`.
+
+### Notes
+- The frontend expects the backend API to be running and accessible (see `.env` or Vite config for API URL).
+- Update API endpoints in `frontend/src/utils/api.js` if needed.
+
+---
+
+## Screenshots
+
+### Dashboard View
+![Dashboard View](./screenshots/dashboard-view.png)
+
+### Classroom View
+![Classroom View](./screenshots/classroom-view.png)
+
+### Add New Students
+![Add Student View](./screenshots/add-student.png)
+
+
+---
+
+## Docker (Optional)
+
+You can use Docker Compose to run both frontend and backend:
+
+```sh
+# From the project root
+# Build and start all services
+docker-compose up --build
+```
+
+---
+
+## Contact
+For any issues, please open an issue in this repository.

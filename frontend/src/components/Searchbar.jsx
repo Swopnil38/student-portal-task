@@ -39,16 +39,16 @@ export default function Searchbar({ onSearch, sortValue, onSortChange }) {
           />
         </div>
         <button
-          className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors"
+          className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors w-full sm:w-auto justify-center text-base sm:text-base"
           onClick={handleSearch}
           aria-label="Search"
         >
           <MagnifyingGlassIcon className="w-5 h-5" aria-hidden="true" />
-          <span className="hidden sm:inline">Search</span>
+          <span className="sm:inline">Search</span>
         </button>
-        <div className="relative">
+        <div className="relative w-full sm:w-auto">
           <select
-            className="border-2 border-blue-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 min-w-[120px] bg-blue-50 text-gray-800 shadow-sm appearance-none pr-8"
+            className="border-2 border-blue-200 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 min-w-[120px] bg-blue-50 text-gray-800 shadow-sm appearance-none pr-8 w-full sm:w-auto"
             value={sort}
             onChange={handleSortChange}
             aria-label="Sort By"
