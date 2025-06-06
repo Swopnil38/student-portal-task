@@ -18,7 +18,7 @@ function App() {
   const handleStudentAdded = async (student) => {
     try {
       return await addStudent(student);
-    } catch (/* err */) {
+    } catch {
       // Error handled in hook
     }
   };
