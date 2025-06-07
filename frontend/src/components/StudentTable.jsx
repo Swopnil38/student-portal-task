@@ -51,7 +51,7 @@ const StudentTable = React.memo(function StudentTable({ students, teacherName, s
           </tr>
         </thead>
         <tbody>
-          {students.map((student, idx) => (
+          {students.map((student) => (
             <React.Fragment key={student.id || student.name}>
               {/* Mobile row: only show name, expandable */}
               <tr className="sm:hidden border-b border-blue-100">
